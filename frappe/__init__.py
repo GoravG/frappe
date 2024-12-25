@@ -2402,12 +2402,19 @@ def logger(
 	)
 
 
-def get_desk_link(doctype, name):
+def get_desk_link(doctype, name, new_tab=False):
 	meta = get_meta(doctype)
 	title = get_value(doctype, name, meta.get_title_field())
 
-	html = '<a href="/app/Form/{doctype}/{name}" style="font-weight: bold;">{doctype_local} {title_local}</a>'
-	return html.format(doctype=doctype, name=name, doctype_local=_(doctype), title_local=_(title))
+	target_attr = ' target="_blank"' if new_tab else ''
+	html = '<a href="/app/Form/{doctype}/{name}" style="font-weight: bold;"{target_attr}>{doctype_local} {title_local}</a>'
+	return html.format(
+		doctype=doctype,
+		name=name,
+		doctype_local=_(doctype),
+		title_local=_(title),
+		target_attr=target_attr
+	)
 
 
 def bold(text: str | int | float) -> str:
